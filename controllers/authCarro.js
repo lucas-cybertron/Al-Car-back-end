@@ -1,4 +1,3 @@
-// controllers/authCarro.js
 const Carro = require('../models/carro');
 
 const registrarCarro = async (req, res) => {
@@ -6,12 +5,12 @@ const registrarCarro = async (req, res) => {
     console.log("📥 Requisição recebida para registrar carro.");
     console.log("📦 Dados recebidos:", req.body);
 
-    const { modelo, placa, renavam, ano, cor, documento } = req.body;
+    const { modelo, placa, renavam, ano, cor, documento, motoId } = req.body;
 
-    // Verificação básica
-    if (!modelo || !placa || !renavam || !ano || !cor) {
+    // Verificação básica, incluindo motoId
+    if (!modelo || !placa || !renavam || !ano || !cor || !motoId) {
       console.warn("⚠️ Dados incompletos recebidos.");
-      return res.status(400).json({ message: 'Por favor, preencha todos os campos obrigatórios.' });
+      return res.status(400).json({ message: 'Por favor, preencha todos os campos obrigatórios, incluindo motoId.' });
     }
 
     // Criação no banco
@@ -22,6 +21,7 @@ const registrarCarro = async (req, res) => {
       ano,
       cor,
       documento,
+      motoId,   // vinculando o carro ao motorista pelo ID
     });
 
     console.log("✅ Carro salvo com sucesso no banco:", novoCarro.toJSON());

@@ -1,4 +1,3 @@
-// models/carro.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
@@ -29,6 +28,16 @@ const Carro = sequelize.define('Carro', {
     type: DataTypes.STRING, // pode ser URL de upload ou um ID
     allowNull: true,
   },
+  motoId: {  // FK para o motorista
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'motos', // nome da tabela motos, importante
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  }
 }, {
   tableName: 'carros',
   timestamps: false,
